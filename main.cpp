@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-    /*cout << "main start" << endl;
+    cout << "main start" << endl;
 
     cout << "initializing board and problem" << endl;
     jStar* jstar = new jStar();
@@ -25,15 +25,7 @@ int main()
     }
     else{
         cout << "NO SOLUTION FOUND" << endl;
-    }*/
-    
-    vector<board*> vBoard;
-    vector<int> problem = {1,2,3,4,5,6,7,0,8};
-    board* b1 = new board(problem);
-    vBoard.push_back(b1);
-    vBoard.at(0)->print();
-    vBoard.push_back(b1->moveLeft());
-    vBoard.at(1)->print();
+    }
 
 
     /*board eightPuzzle;  //class object for hardcoded(default) puzzle

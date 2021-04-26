@@ -14,7 +14,7 @@ class jStar{
         int maxFrontierSize;
         board* root;
         board* goal;
-        set<board*> explored;
+        set<vector<int>> explored;
         priority_queue<board*, vector<board*>, CompareCost> frontier;
         board* solve(board*);
         void printSolution();

@@ -47,7 +47,7 @@ int board::misplacedCost(){
 board* board::moveUp(){
     board* temp = new board(this->currentState);
     int blankPos = blankLocation();
-    if(blankPos >= (width-1)){
+    if(blankPos > (width-1)){
         int swapVal = temp->currentState.at(blankPos - width);
         temp->currentState.at(blankPos - width) = 0;
         temp->currentState.at(blankPos) = swapVal;
@@ -62,7 +62,7 @@ board* board::moveUp(){
 board* board::moveDown(){
     board* temp = new board(this->currentState);
     int blankPos = blankLocation();
-    if(blankPos <= (width*(width-1))){
+    if(blankPos < (width*(width-1))){
         int swapVal = temp->currentState.at(blankPos + width);
         temp->currentState.at(blankPos + width) = 0;
         temp->currentState.at(blankPos) = swapVal;
