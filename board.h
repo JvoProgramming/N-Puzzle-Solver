@@ -58,7 +58,7 @@ class board{
 
 struct CompareCost{
     bool operator()(board* const  b1, board* const b2){
-        return b1->cost < b2->cost;
+        return b1->cost > b2->cost;
     }
 };
 
