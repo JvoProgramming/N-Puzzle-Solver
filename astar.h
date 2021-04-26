@@ -4,40 +4,21 @@
 #include <list>
 #include "board.h"
 
-
-//for reference https://www.geeksforgeeks.org/a-search-algorithm/ was utilized.
-
 class Astar{
     private:
-
+        int node;
+        int maxNode;
+        priority_queue<board*, vector<board*>, pq> frontier;
+        vector<board*> search;
+        board* root;
 
     public:
+        Astar();
+        ~Astar();
+        Astar(board*);
+        priority_queue<> ;
+
         void uniformCS();
         void misplacedTS();
         void eucledianDS();
 };
-
-void Astar::uniformCS(){
-    board *moveUp();
-    board *moveDown();
-    board *moveLeft();
-    board *moveRight();
-    
-
-
-
-}
-
-void Astar::misplacedTS(){
-    board *moveUp();
-    board *moveDown();
-    board *moveLeft();
-    board *moveRight();
-}
-
-void Astar::eucledianDS(){
-    board *moveUp();
-    board *moveDown();
-    board *moveLeft();
-    board *moveRight();
-}

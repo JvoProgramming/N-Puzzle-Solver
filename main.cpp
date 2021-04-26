@@ -1,19 +1,39 @@
 #include <iostream>
 #include <queue>
 #include "board.h"
+#include "jstar.h"
 
 using namespace std;
 
 int main()
 {
-    vector<int> problem = {1,2,3,4,5,6,7,8,0};
+    /*cout << "main start" << endl;
+
+    cout << "initializing board and problem" << endl;
+    jStar* jstar = new jStar();
+    vector<int> problem = {1,2,3,4,5,6,7,0,8};
     board* b1 = new board(problem);
+    cout << "finished initializing" << endl;
 
-    board* b2 = b1->moveLeft();
+    cout << "now calling solve()" << endl;
+    board* solution = jstar->solve(b1);
 
-    b1->print();
-    problem = b1->getVec();
-    cout << problem.at(0) << endl;
+    cout << "checking solution" << endl;
+    if(solution != NULL){
+        cout << "SOLUTION FOUND" << endl;
+        solution->print();
+    }
+    else{
+        cout << "NO SOLUTION FOUND" << endl;
+    }*/
+    
+    vector<board*> vBoard;
+    vector<int> problem = {1,2,3,4,5,6,7,0,8};
+    board* b1 = new board(problem);
+    vBoard.push_back(b1);
+    vBoard.at(0)->print();
+    vBoard.push_back(b1->moveLeft());
+    vBoard.at(1)->print();
 
 
     /*board eightPuzzle;  //class object for hardcoded(default) puzzle

@@ -1,3 +1,6 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <iostream>
 #include <vector>
 #include <math.h>
@@ -37,7 +40,7 @@ class board{
 
 };
 
-class Tree{
+/*class Tree{
     private:
         int node;
         int maxNode;
@@ -51,4 +54,12 @@ class Tree{
         Tree(board*);
         priority_queue<> ;
 
+};*/
+
+struct CompareCost{
+    bool operator()(board* const  b1, board* const b2){
+        return b1->cost < b2->cost;
+    }
 };
+
+#endif
