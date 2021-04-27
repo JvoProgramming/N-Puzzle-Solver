@@ -9,7 +9,7 @@ int main()
 {
 
     jStar* jstar = new jStar();
-    vector<int> problem = {1,2,3,4,5,6,7,8,0};
+    vector<int> problem = {1,2,0,4,5,3,7,8,6};
     board* b1 = new board(problem);
 
    board* solution = jstar->solve(b1);
@@ -19,7 +19,7 @@ int main()
         cout << "Max explored size: " << jstar->exploredSize << endl;
         cout << "Number of nodes expanded: " << jstar->expandSize << endl;
         cout << "NOW PRINTING SOLUTION: " << endl;
-        jstar->printSolution(solution);
+        //jstar->printSolution(solution);
     }
     else{
         cout << "NO SOLUTION FOUND" << endl;

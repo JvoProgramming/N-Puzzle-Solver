@@ -43,8 +43,14 @@ int board::misplacedCost(){
     int cost = 0;
     for(int i = 0; i < boardSize-1; i++){ //check n-1 spots
         if(currentState.at(i) != i+1){
-            cost++;
+            if(currentState.at(i) != 0){
+                cost++;
+            }
         }
+
+    }
+    if(currentState.at(boardSize-1) != 0){
+        cost++;
     }
     this->hCost = cost;
     return cost;
