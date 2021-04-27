@@ -1,5 +1,5 @@
-#ifndef JSTAR_H
-#define JSTAR_H
+#ifndef UCOST_H
+#define UCOST_H
 
 #include "board.h"
 #include <set>

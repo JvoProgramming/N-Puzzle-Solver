@@ -35,7 +35,7 @@ class board{
         board* getParent();
         vector<int> getVec();
         void setVec(vector<int>);
-
+        
         //Functions for UCS, Misplace and Eucledian distance
         int f();
         int g();

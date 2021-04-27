@@ -9,21 +9,21 @@ int main()
 {
 
     jStar* jstar = new jStar();
-    vector<int> problem = {1,2,0,4,5,3,7,8,6};
+    vector<int> problem = {1,2,3,4,5,6,7,8,0};
     board* b1 = new board(problem);
 
-
-    board* solution = jstar->solve(b1);
+   board* solution = jstar->solve(b1);
 
     if(solution != NULL){
         cout << "Max queue size: " << jstar->maxQueueSize << endl;
         cout << "Max explored size: " << jstar->exploredSize << endl;
         cout << "Number of nodes expanded: " << jstar->expandSize << endl;
+        cout << "NOW PRINTING SOLUTION: " << endl;
+        jstar->printSolution(solution);
     }
     else{
         cout << "NO SOLUTION FOUND" << endl;
     }
-
 
     /*board eightPuzzle;  //class object for hardcoded(default) puzzle
     int row = 3;

@@ -4,6 +4,7 @@ jStar::jStar(){
     this->root = NULL;
     maxQueueSize = 0;
     exploredSize = 0;
+    expandSize = 0;
 }
 
 jStar::~jStar(){
@@ -29,11 +30,13 @@ board* jStar::solve(board* b){
             maxQueueSize = frontier.size();
         }
         b = frontier.top();
-        cout << "The best state to expand with g(n) = " << b->gCost << " and h(n) = " << b->hCost << " is..." << endl;
-        b->print();
+        if(b->gCost != 0){
+            cout << "The best state to expand with g(n) = " << b->gCost << " and h(n) = " << b->hCost << " is..." << endl;
+            b->print();
+        }
         frontier.pop();
         //IF STATE IS GOAL, RETURN IT
-        if(b->goalFound()){
+        if(b->goalFound() && (frontier.top()->cost >= b->cost)){
             cout << "Goal!!!" << endl << endl;
             return b;
         }
@@ -67,6 +70,7 @@ board* jStar::solve(board* b){
 }
 
 void jStar::printSolution(board* goalNode){
+    int moves = 0;
     cout << "PRINTING SOLUTION: " << endl;
     vector<board*> traverseVec;
     board* curr = goalNode;
@@ -76,6 +80,8 @@ void jStar::printSolution(board* goalNode){
     }
     for(unsigned i = traverseVec.size()-1; i > 0; i--){
         traverseVec.at(i)->print();
+        moves++;
     }
     goalNode->print();
+    cout << "Moves: " << moves << endl;
 }
