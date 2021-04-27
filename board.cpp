@@ -7,14 +7,17 @@ board::board(){     //hard code the default puzzle for choice 1
     initialState = {};
     goalState = {1,2,3,4,5,6,7,8,0};
     currentState = {1,2,3,4,5,6,7,8,0};
+    gCost = 0;
 
 }
 
 board::board(vector<int> v){
+    gCost = 0;
     parent = NULL;
     goalState = {1,2,3,4,5,6,7,8,0};
     currentState = v;
-    cost = misplacedCost();
+    hCost = misplacedCost();
+    cost = gCost + hCost;
 }
 
 board::~board(){
@@ -32,12 +35,12 @@ int board::blankLocation(){
 
 int board::misplacedCost(){
     int cost = 0;
-    for(int i = 0; i < boardSize-1; i++){ //check 1-8
+    for(int i = 0; i < boardSize-1; i++){ //check n-1 spots
         if(currentState.at(i) != i+1){
             cost++;
         }
     }
-    if(currentState.at(boardSize-1) != 0){ //check last spot
+    if(currentState.at(boardSize-1) != 0){ //check n-th spot
         cost++;
     }
     this->cost = cost;
@@ -52,6 +55,7 @@ board* board::moveUp(){
         temp->currentState.at(blankPos - width) = 0;
         temp->currentState.at(blankPos) = swapVal;
         temp->parent = this;
+        temp->gCost = temp->parent->gCost + 1;
         return temp;
     }
     else{
@@ -67,6 +71,7 @@ board* board::moveDown(){
         temp->currentState.at(blankPos + width) = 0;
         temp->currentState.at(blankPos) = swapVal;
         temp->parent = this;
+        temp->gCost = temp->parent->gCost + 1;
         return temp;
     }
     else{
@@ -82,6 +87,7 @@ board* board::moveLeft(){
         temp->currentState.at(blankPos - 1) = 0;
         temp->currentState.at(blankPos) = swapVal;
         temp->parent = this;
+        temp->gCost = temp->parent->gCost + 1;
         return temp;
     }
     else{
@@ -97,6 +103,7 @@ board* board::moveRight(){
         temp->currentState.at(blankPos + 1) = 0;
         temp->currentState.at(blankPos) = swapVal;
         temp->parent = this;
+        temp->gCost = temp->parent->gCost + 1;
         return temp;
     }
     else{
@@ -130,4 +137,8 @@ board* board::getParent(){
 
 vector<int> board::getVec(){
     return this->currentState;
+}
+
+void board::setVec(vector<int> v){
+    this->currentState = v;
 }

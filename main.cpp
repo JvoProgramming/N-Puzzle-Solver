@@ -8,21 +8,14 @@ using namespace std;
 int main()
 {
 
-    cout << "main start" << endl;
-
-    cout << "initializing board and problem" << endl;
     jStar* jstar = new jStar();
-    vector<int> problem = {1,2,3,4,5,6,7,8,0};
+    vector<int> problem = {1,2,0,4,5,3,7,8,6};
     board* b1 = new board(problem);
-    cout << "finished initializing" << endl;
 
-    cout << "now calling solve()" << endl;
+
     board* solution = jstar->solve(b1);
 
-    cout << "checking solution" << endl;
     if(solution != NULL){
-        cout << "SOLUTION FOUND" << endl;
-        solution->print();
         cout << "Max queue size: " << jstar->maxQueueSize << endl;
         cout << "Max explored size: " << jstar->exploredSize << endl;
         cout << "Number of nodes expanded: " << jstar->expandSize << endl;

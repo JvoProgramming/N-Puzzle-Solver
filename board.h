@@ -22,6 +22,8 @@ class board{
         ~board();
         board* parent;
         int cost;
+        int hCost;
+        int gCost;
         int blankLocation();
         board* moveUp();
         board* moveDown();
@@ -32,6 +34,7 @@ class board{
         void print();
         board* getParent();
         vector<int> getVec();
+        void setVec(vector<int>);
 
         //Functions for UCS, Misplace and Eucledian distance
         int f();
@@ -39,22 +42,6 @@ class board{
         int h();
 
 };
-
-/*class Tree{
-    private:
-        int node;
-        int maxNode;
-        priority_queue<board*, vector<board*> > frontier;
-        vector<board*> search;
-        board* root;
-
-    public:
-        Tree();
-        ~Tree();
-        Tree(board*);
-        priority_queue<> ;
-
-};*/
 
 struct CompareCost{
     bool operator()(board* const  b1, board* const b2){

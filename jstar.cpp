@@ -16,6 +16,7 @@ board* jStar::solve(board* b){
     expandSize = 0;
 
     root = b;
+    cout << "Expanding state";
     root->print();
     //INITALIZE FRONTIER USING INITIAL STATE OF PROBLEM
     frontier.push(b);
@@ -28,42 +29,36 @@ board* jStar::solve(board* b){
             maxQueueSize = frontier.size();
         }
         b = frontier.top();
+        cout << "The best state to expand with g(n) = " << b->gCost << " and h(n) = " << b->hCost << " is..." << endl;
+        b->print();
         frontier.pop();
         //IF STATE IS GOAL, RETURN IT
         if(b->goalFound()){
+            cout << "Goal!!!" << endl << endl;
             return b;
         }
         //ELSE INSERT INTO EXPLORED SET
         explored.insert(b->getVec());
         exploredSize = explored.size();
         //THEN EXPAND ITS CHILDREN
-        // -------- IF STATEMENT NEEDS TO CHECK FRONTIER TOO (implement later) ----------
         if(b->moveLeft() != NULL && !(explored.find(b->moveLeft()->getVec()) != explored.end()) && !(frontierSet.find(b->moveLeft()->getVec()) != frontierSet.end())){
             frontier.push(b->moveLeft());
             frontierSet.insert(b->moveLeft()->getVec());
-            cout << "moved left" << endl;
-            b->moveLeft()->print();
             expandSize++;
         }
         if(b->moveRight() != NULL && !(explored.find(b->moveRight()->getVec()) != explored.end()) && !(frontierSet.find(b->moveRight()->getVec()) != frontierSet.end())){
             frontier.push(b->moveRight());
             frontierSet.insert(b->moveRight()->getVec());
-            cout << "moved right" << endl;
-            b->moveRight()->print();
             expandSize++;
         }
         if(b->moveUp() != NULL && !(explored.find(b->moveUp()->getVec()) != explored.end()) && !(frontierSet.find(b->moveUp()->getVec()) != frontierSet.end())){
             frontier.push(b->moveUp());
             frontierSet.insert(b->moveUp()->getVec());
-            cout << "moved up" << endl;
-            b->moveUp()->print();
             expandSize++;
         }
         if(b->moveDown() != NULL && !(explored.find(b->moveDown()->getVec()) != explored.end()) && !(frontierSet.find(b->moveDown()->getVec()) != frontierSet.end())){
             frontier.push(b->moveDown());
             frontierSet.insert(b->moveDown()->getVec());
-            cout << "moved down" << endl;
-            b->moveDown()->print();
             expandSize++;
         }
     }
