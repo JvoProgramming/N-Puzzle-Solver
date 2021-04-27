@@ -7,11 +7,12 @@ using namespace std;
 
 int main()
 {
+
     cout << "main start" << endl;
 
     cout << "initializing board and problem" << endl;
     jStar* jstar = new jStar();
-    vector<int> problem = {1,2,3,4,5,6,7,0,8};
+    vector<int> problem = {1,2,3,4,5,6,7,8,0};
     board* b1 = new board(problem);
     cout << "finished initializing" << endl;
 
@@ -22,6 +23,9 @@ int main()
     if(solution != NULL){
         cout << "SOLUTION FOUND" << endl;
         solution->print();
+        cout << "Max queue size: " << jstar->maxQueueSize << endl;
+        cout << "Max explored size: " << jstar->exploredSize << endl;
+        cout << "Number of nodes expanded: " << jstar->expandSize << endl;
     }
     else{
         cout << "NO SOLUTION FOUND" << endl;

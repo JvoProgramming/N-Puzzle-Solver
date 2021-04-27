@@ -2,20 +2,31 @@
 
 jStar::jStar(){
     this->root = NULL;
+    maxQueueSize = 0;
+    exploredSize = 0;
 }
 
 jStar::~jStar(){
 }
 
 board* jStar::solve(board* b){
-    cout << "entering jstar solve()..." << endl;
+    //INITIALIZE COUNTERS
+    maxQueueSize = 0;
+    exploredSize = 0;
+    expandSize = 0;
+
     root = b;
     root->print();
     //INITALIZE FRONTIER USING INITIAL STATE OF PROBLEM
     frontier.push(b);
+    frontierSet.insert(b->getVec());
     explored.clear();
+    frontierSet.clear();
     //LOOP UNTIL FRONTIER EMPTY OR GOAL STATE FOUND
     while(!frontier.empty()){
+        if(frontier.size() > maxQueueSize){
+            maxQueueSize = frontier.size();
+        }
         b = frontier.top();
         frontier.pop();
         //IF STATE IS GOAL, RETURN IT
@@ -24,29 +35,52 @@ board* jStar::solve(board* b){
         }
         //ELSE INSERT INTO EXPLORED SET
         explored.insert(b->getVec());
+        exploredSize = explored.size();
         //THEN EXPAND ITS CHILDREN
         // -------- IF STATEMENT NEEDS TO CHECK FRONTIER TOO (implement later) ----------
-        if(b->moveLeft() != NULL && !(explored.find(b->moveLeft()->getVec()) != explored.end())){
+        if(b->moveLeft() != NULL && !(explored.find(b->moveLeft()->getVec()) != explored.end()) && !(frontierSet.find(b->moveLeft()->getVec()) != frontierSet.end())){
             frontier.push(b->moveLeft());
+            frontierSet.insert(b->moveLeft()->getVec());
             cout << "moved left" << endl;
             b->moveLeft()->print();
+            expandSize++;
         }
-        if(b->moveRight() != NULL && !(explored.find(b->moveRight()->getVec()) != explored.end())){
+        if(b->moveRight() != NULL && !(explored.find(b->moveRight()->getVec()) != explored.end()) && !(frontierSet.find(b->moveRight()->getVec()) != frontierSet.end())){
             frontier.push(b->moveRight());
+            frontierSet.insert(b->moveRight()->getVec());
             cout << "moved right" << endl;
             b->moveRight()->print();
+            expandSize++;
         }
-        if(b->moveUp() != NULL && !(explored.find(b->moveUp()->getVec()) != explored.end())){
+        if(b->moveUp() != NULL && !(explored.find(b->moveUp()->getVec()) != explored.end()) && !(frontierSet.find(b->moveUp()->getVec()) != frontierSet.end())){
             frontier.push(b->moveUp());
+            frontierSet.insert(b->moveUp()->getVec());
             cout << "moved up" << endl;
             b->moveUp()->print();
+            expandSize++;
         }
-        if(b->moveDown() != NULL && !(explored.find(b->moveDown()->getVec()) != explored.end())){
+        if(b->moveDown() != NULL && !(explored.find(b->moveDown()->getVec()) != explored.end()) && !(frontierSet.find(b->moveDown()->getVec()) != frontierSet.end())){
             frontier.push(b->moveDown());
+            frontierSet.insert(b->moveDown()->getVec());
             cout << "moved down" << endl;
             b->moveDown()->print();
+            expandSize++;
         }
     }
     //CANNOT FIND A GOAL, RETURN NULL
     return NULL;
+}
+
+void jStar::printSolution(board* goalNode){
+    cout << "PRINTING SOLUTION: " << endl;
+    vector<board*> traverseVec;
+    board* curr = goalNode;
+    while(curr != NULL){
+        traverseVec.push_back(curr);
+        curr = curr->getParent();
+    }
+    for(unsigned i = traverseVec.size()-1; i > 0; i--){
+        traverseVec.at(i)->print();
+    }
+    goalNode->print();
 }
