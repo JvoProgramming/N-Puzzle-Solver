@@ -31,7 +31,7 @@ board* jStar::solve(board* b){
         }
         b = frontier.top();
         if(b->gCost != 0){
-            cout << "The best state to expand with g(n) = " << b->gCost << " and h(n) = " << b->hCost << " is..." << endl;
+            cout << "The best state to expand with f(n) = " << b->cost << ", " << "g(n) = " << b->gCost << ", and h(n) = " << b->hCost << " is..." << endl;
             b->print();
         }
         frontier.pop();

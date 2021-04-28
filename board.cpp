@@ -6,11 +6,12 @@ bool UCS = false;
 
 board::board(){     //hard code the default puzzle for choice 1
     parent = NULL;
+    gCost = 0;
+    hCost = 0;
     initialState = {};
     goalState = {1,2,3,4,5,6,7,8,0};
     currentState = {1,2,3,4,5,6,7,8,0};
-    gCost = 0;
-    hCost = 0;
+    misplacedCost();
 
 }
 
@@ -19,7 +20,7 @@ board::board(vector<int> v){
     parent = NULL;
     goalState = {1,2,3,4,5,6,7,8,0};
     currentState = v;
-    hCost = misplacedCost();
+    misplacedCost();
     cost = gCost + hCost;
 }
 
@@ -40,20 +41,20 @@ int board::misplacedCost(){
     if(UCS){
         return 0;
     }
-    int cost = 0;
+    int heuristic = 0;
     for(int i = 0; i < boardSize-1; i++){ //check n-1 spots
         if(currentState.at(i) != i+1){
             if(currentState.at(i) != 0){
-                cost++;
+                heuristic++;
             }
         }
 
     }
     if(currentState.at(boardSize-1) != 0){
-        cost++;
+        heuristic++;
     }
-    this->hCost = cost;
-    return cost;
+    this->hCost = heuristic;
+    return heuristic;
 }
 
 board* board::moveUp(){
@@ -68,6 +69,7 @@ board* board::moveUp(){
         if(temp->getVec() == goalState){
             temp->hCost = 0;
         }
+        temp->misplacedCost();
         return temp;
     }
     else{
@@ -87,6 +89,7 @@ board* board::moveDown(){
         if(temp->getVec() == goalState){
             temp->hCost = 0;
         }
+        temp->misplacedCost();
         return temp;
     }
     else{
@@ -106,6 +109,7 @@ board* board::moveLeft(){
         if(temp->getVec() == goalState){
             temp->hCost = 0;
         }
+        temp->misplacedCost();
         return temp;
     }
     else{
@@ -125,6 +129,7 @@ board* board::moveRight(){
         if(temp->getVec() == goalState){
             temp->hCost = 0;
         }
+        temp->misplacedCost();
         return temp;
     }
     else{
