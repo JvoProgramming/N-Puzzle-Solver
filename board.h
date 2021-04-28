@@ -45,7 +45,14 @@ class board{
 
 struct CompareCost{
     bool operator()(board* const  b1, board* const b2){
-        return b1->hCost > b2->hCost;
+        if(b1->cost == b2->cost){
+            if(b1->gCost < b2->gCost){//THIS MAKES SURE TO PRIORITIZE g(n) IF f(n) is equal
+                return false;
+            }
+        }
+        else{
+            return b1->cost > b2->cost;
+        }
     }
 };
 

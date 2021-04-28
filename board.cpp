@@ -39,6 +39,7 @@ int board::blankLocation(){
 
 int board::misplacedCost(){
     if(UCS){
+        this->hCost = 0;
         return 0;
     }
     int heuristic = 0;
@@ -54,6 +55,7 @@ int board::misplacedCost(){
         heuristic++;
     }
     this->hCost = heuristic;
+    this->cost = this->hCost + this->gCost;
     return heuristic;
 }
 
