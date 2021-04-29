@@ -10,9 +10,11 @@ using namespace std;
 const int boardSize = 9;
 const int width = ceil(sqrt(boardSize));
 
+extern bool UCS;
+extern bool manhattan;
+
 class board{
     private:
-        vector<int> initialState;   //vector<vector<int>> for passing (x,y) to matrix board
         vector<int> currentState;
         vector<int> goalState;
         
@@ -21,9 +23,12 @@ class board{
         board(vector<int> v);
         ~board();
         board* parent;
+        int boardSize;
+        int width;
         int cost;
         int hCost;
         int gCost;
+        //bool UCS;
         int blankLocation();
         board* moveUp();
         board* moveDown();
@@ -43,7 +48,7 @@ class board{
 
 };
 
-struct CompareCost{
+struct CompareCost{ //comparator struct for priority queue
     bool operator()(board* const  b1, board* const b2){
         if(b1->cost == b2->cost){
             if(b1->gCost < b2->gCost){//THIS MAKES SURE TO PRIORITIZE g(n) IF f(n) is equal

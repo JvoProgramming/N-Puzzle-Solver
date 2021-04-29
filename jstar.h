@@ -12,7 +12,9 @@ class jStar{
         int maxQueueSize;
         int exploredSize;
         int expandSize;
+        int searchOption;
         jStar();
+        jstar(int option);
         ~jStar();
         board* root;
         board* goal;

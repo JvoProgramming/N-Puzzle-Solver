@@ -16,6 +16,7 @@ board* jStar::solve(board* b){
     exploredSize = 0;
     expandSize = 0;
 
+    board* goalNode = NULL;
     root = b;
     cout << "Expanding state";
     root->print();
@@ -36,9 +37,12 @@ board* jStar::solve(board* b){
         }
         frontier.pop();
         //IF STATE IS GOAL, RETURN IT
-        if(b->goalFound() && (frontier.top()->cost >= b->cost)){
-            cout << "Goal!!!" << endl << endl;
-            return b;
+        if(b->goalFound()){
+            goalNode = b;
+            cout << "found GOAL" << endl;
+        }
+        if(goalNode != NULL && (goalNode->cost <= frontier.top()->cost)){ //CHECK IF IT IS ACTUALLY THE GOAL NODE
+            return goalNode;
         }
         //ELSE INSERT INTO EXPLORED SET
         explored.insert(b->getVec());
