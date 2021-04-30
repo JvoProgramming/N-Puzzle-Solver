@@ -7,8 +7,8 @@
 
 using namespace std;
 
-const int boardSize = 9;
-const int width = ceil(sqrt(boardSize));
+//const int boardSize = 9;
+//const int width = ceil(sqrt(boardSize));
 
 extern bool UCS;
 extern bool manhattan;

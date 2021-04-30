@@ -3,24 +3,24 @@
 
 board::board(){ //default constructor 
     parent = NULL;
-    boardSize = 9;
+    boardSize = 9; //CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
     width = ceil(sqrt(boardSize));
     gCost = 0;
     hCost = 0;
     cost = 0;
-    goalState = {1,2,3,4,5,6,7,8,0};
-    currentState = {1,2,3,4,5,6,7,8,0};
+    goalState = {1,2,3,4,5,6,7,8,0}; //CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
+    currentState = {1,2,3,4,5,6,7,8,0}; // CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
     misplacedCost();
 
 }
 
 board::board(vector<int> v){//constructor with parameter to set board current state (vector)
-    boardSize = 9;
+    boardSize = 9; //CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
     width = ceil(sqrt(boardSize));
     gCost = 0;
     //hCost = 0;
     parent = NULL;
-    goalState = {1,2,3,4,5,6,7,8,0};
+    goalState = {1,2,3,4,5,6,7,8,0}; //CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
     currentState = v;
     misplacedCost();
     cost = gCost + hCost;
@@ -40,14 +40,32 @@ int board::blankLocation(){ //returns location of blank spot
 }
 
 int board::misplacedCost(){ //returns # of misplaced tiles and sets this->hCost and this->cost
-    if(UCS == true){ //UCS heuristic
+    if(UCS){ //UCS heuristic
         this->hCost = 0;
         return 0;
     }
-    else if(manhattan){ //manhattan distance heuristic
-
+    else if(manhattan){ //Manhattan Distance Algorithm
+        double heuristic = 0;
+        int x = 0;
+        int y = 0;
+        for(int i = 0; i < boardSize; i++){
+            x = 0;
+            y = 0;
+            if(currentState.at(i) != 0 && currentState.at(i) != i+1){
+                x = ((currentState.at(i))%width) - ((i+1)%width);
+                y = floor(currentState.at(i)/width);
+                x = abs(x);
+                y = abs(y);
+                heuristic += sqrt(x^2+y^2);
+                cout << currentState.at(i) << ": heuristic of " << sqrt(x^2+y^2) << endl;
+                cout << "derived from " << x << " " << y << endl;
+            }
+        }
+        this->hCost = heuristic;
+        this->cost = this->hCost + this->gCost;
+        return heuristic;
     }
-    else{
+    else{ //Misplaced Tile Algorithm
         int heuristic = 0;
         for(int i = 0; i < boardSize-1; i++){ //check n-1 spots
             if(currentState.at(i) != i+1){

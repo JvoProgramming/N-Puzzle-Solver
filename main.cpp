@@ -34,6 +34,7 @@ int main()
         cin >> puzzleSize;
         fflush(stdin);
         gameBoard->boardSize = puzzleSize+1;
+        gameBoard->width = ceil(sqrt(gameBoard->boardSize));
         cout << "Enter game state, from top-left to right-bottom, " << gameBoard->boardSize << " characters, e.g. \"0 1 2 3 4 5 6 7 8\" " << endl;
         string userInput;
         fflush(stdin);
@@ -56,11 +57,13 @@ int main()
     cin >> algoChoice;
     cout << algoChoice << endl;
 
+
     switch(algoChoice){
         case 1:             //Uniform Cost Search
             cout << "Performing uniform cost search... " << endl;
             gameBoard->setVec(problem);
             UCS = true;
+            manhattan = false;
             solution = jstar->solve(gameBoard);
 
             if(solution != NULL){
@@ -75,8 +78,11 @@ int main()
             }
             break;
         case 2:             //A* with Misplaced Tile heuristic
+            cout << "Performing A* search with the Misplaced Tile heuristic" << endl;
+            
             gameBoard->setVec(problem);
             UCS = false;
+            manhattan = false;
             solution = jstar->solve(gameBoard);
 
             if(solution != NULL){
@@ -90,8 +96,23 @@ int main()
                 cout << "NO SOLUTION FOUND" << endl;
             }
             break;
+        case 3:             //A* with Euclidian Distance heuristic
+            cout << "Performing A* search with the Euclidian Distance heuristic" << endl;
+            gameBoard->setVec(problem);
+            UCS = false;
+            manhattan = true;
+            solution = jstar->solve(gameBoard);
 
-        case 3:             //A* with Eucledian Distance heuristic
+            if(solution != NULL){
+                cout << "Max queue size: " << jstar->maxQueueSize << endl;
+                cout << "Max explored size: " << jstar->exploredSize << endl;
+                cout << "Number of nodes expanded: " << jstar->expandSize << endl;
+                cout << "NOW PRINTING SOLUTION: " << endl;
+                jstar->printSolution(solution);
+            }
+            else{
+                cout << "NO SOLUTION FOUND" << endl;
+            }
             break;
         default:
             cout << "That choice is not available, please try again!\n";
