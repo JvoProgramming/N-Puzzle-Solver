@@ -11,7 +11,7 @@ using namespace std;
 //const int width = ceil(sqrt(boardSize));
 
 extern bool UCS;
-extern bool manhattan;
+extern bool euclidean;
 
 class board{
     private:

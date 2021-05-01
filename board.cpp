@@ -44,7 +44,7 @@ int board::misplacedCost(){ //returns # of misplaced tiles and sets this->hCost 
         this->hCost = 0;
         return 0;
     }
-    else if(manhattan){ //Manhattan Distance Algorithm
+    else if(euclidean){ //Euclidean Distance Algorithm
         double heuristic = 0;
         int x = 0;
         int y = 0;
@@ -52,8 +52,18 @@ int board::misplacedCost(){ //returns # of misplaced tiles and sets this->hCost 
             x = 0;
             y = 0;
             if(currentState.at(i) != 0 && currentState.at(i) != i+1){
-                x = ((currentState.at(i))%width) - ((i+1)%width);
-                y = floor(currentState.at(i)/width);
+                if(currentState.at(i) <= width){
+                    x = ((i+1)-currentState.at(i)) % 3;
+                }
+                else{
+                    x = ((currentState.at(i))%width) - ((i+1)%width);
+                }
+                if(currentState.at(i) <= width){
+                    y = floor(i/width);
+                }
+                else{
+                    y = floor(currentState.at(i)/width);
+                }
                 x = abs(x);
                 y = abs(y);
                 heuristic += sqrt(x^2+y^2);

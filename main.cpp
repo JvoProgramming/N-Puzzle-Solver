@@ -9,7 +9,7 @@
 using namespace std;
 
 bool UCS;
-bool manhattan;
+bool euclidean;
 
 int main()
 {
@@ -63,7 +63,7 @@ int main()
             cout << "Performing uniform cost search... " << endl;
             gameBoard->setVec(problem);
             UCS = true;
-            manhattan = false;
+            euclidean = false;
             solution = jstar->solve(gameBoard);
 
             if(solution != NULL){
@@ -82,7 +82,7 @@ int main()
             
             gameBoard->setVec(problem);
             UCS = false;
-            manhattan = false;
+            euclidean = false;
             solution = jstar->solve(gameBoard);
 
             if(solution != NULL){
@@ -100,7 +100,7 @@ int main()
             cout << "Performing A* search with the Euclidian Distance heuristic" << endl;
             gameBoard->setVec(problem);
             UCS = false;
-            manhattan = true;
+            euclidean = true;
             solution = jstar->solve(gameBoard);
 
             if(solution != NULL){
