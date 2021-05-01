@@ -39,43 +39,55 @@ int board::blankLocation(){ //returns location of blank spot
     return location;
 }
 
-int board::misplacedCost(){ //returns # of misplaced tiles and sets this->hCost and this->cost
-    if(UCS){ //UCS heuristic
+double board::misplacedCost(){ //returns # of misplaced tiles and sets this->hCost and this->cost
+    if(UCS && !euclidean){ //UCS heuristic
         this->hCost = 0;
         return 0;
     }
-    else if(euclidean){ //Euclidean Distance Algorithm
+    else if(euclidean && !UCS){ //Euclidean Distance Algorithm
         double heuristic = 0;
         int x = 0;
         int y = 0;
+        int currentX = 0;
+        int correctX = 0;
+        double currentY = 0;
+        double correctY = 0;
+        double result = 0;
         for(int i = 0; i < boardSize; i++){
-            x = 0;
-            y = 0;
             if(currentState.at(i) != 0 && currentState.at(i) != i+1){
-                if(currentState.at(i) <= width){
-                    x = ((i+1)-currentState.at(i)) % 3;
+                //FIND DISTANCE OF X
+                if(currentState.at(i) % width == 0){
+                    correctX = width;
                 }
                 else{
-                    x = ((currentState.at(i))%width) - ((i+1)%width);
+                    correctX = currentState.at(i) % width;
                 }
-                if(currentState.at(i) <= width){
-                    y = floor(i/width);
+                if((i+1)%width == 0){
+                    currentX = width;
                 }
                 else{
-                    y = floor(currentState.at(i)/width);
+                    currentX = (i+1)%width;
                 }
+                x = currentX - correctX;
+
+                //FIND DISTANCE OF Y
+                currentY = ceil((double(i+1))/double(width));
+                correctY = ceil(double(currentState.at(i))/double(width));
+                y = currentY - correctY;
+
+                //Calculate euclidean
                 x = abs(x);
                 y = abs(y);
-                heuristic += sqrt(x^2+y^2);
-                cout << currentState.at(i) << ": heuristic of " << sqrt(x^2+y^2) << endl;
-                cout << "derived from " << x << " " << y << endl;
+
+                result = sqrt(pow(x,2)+pow(y,2));
+                heuristic += result;
             }
         }
         this->hCost = heuristic;
         this->cost = this->hCost + this->gCost;
         return heuristic;
     }
-    else{ //Misplaced Tile Algorithm
+    else if(!UCS && !euclidean){ //Misplaced Tile Algorithm
         int heuristic = 0;
         for(int i = 0; i < boardSize-1; i++){ //check n-1 spots
             if(currentState.at(i) != i+1){

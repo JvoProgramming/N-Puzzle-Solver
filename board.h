@@ -25,9 +25,9 @@ class board{
         board* parent;
         int boardSize;
         int width;
-        int cost;
-        int hCost;
-        int gCost;
+        double cost;
+        double hCost;
+        double gCost;
         //bool UCS;
         int blankLocation();
         board* moveUp();
@@ -35,7 +35,7 @@ class board{
         board* moveLeft();
         board* moveRight();
         bool goalFound();
-        int misplacedCost();
+        double misplacedCost();
         void print();
         board* getParent();
         vector<int> getVec();
