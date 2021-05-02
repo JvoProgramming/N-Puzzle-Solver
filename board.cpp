@@ -115,6 +115,9 @@ board* board::moveUp(){ //returns a board after operation, sets parent, then upd
         temp->currentState.at(blankPos - width) = 0;
         temp->currentState.at(blankPos) = swapVal;
         temp->parent = this;
+        temp->boardSize = this->boardSize;
+        temp->goalState = this->goalState;
+        temp->width = this->width;
         temp->gCost = temp->parent->gCost + 1;
         if(temp->getVec() == goalState){
             temp->hCost = 0;
@@ -135,6 +138,9 @@ board* board::moveDown(){ //returns a board after operation, sets parent, then u
         temp->currentState.at(blankPos + width) = 0;
         temp->currentState.at(blankPos) = swapVal;
         temp->parent = this;
+        temp->boardSize = this->boardSize;
+        temp->goalState = this->goalState;
+        temp->width = this->width;
         temp->gCost = temp->parent->gCost + 1;
         if(temp->getVec() == goalState){
             temp->hCost = 0;
@@ -155,6 +161,9 @@ board* board::moveLeft(){ //returns a board after operation, sets parent, then u
         temp->currentState.at(blankPos - 1) = 0;
         temp->currentState.at(blankPos) = swapVal;
         temp->parent = this;
+        temp->boardSize = this->boardSize;
+        temp->goalState = this->goalState;
+        temp->width = this->width;
         temp->gCost = temp->parent->gCost + 1;
         if(temp->getVec() == goalState){
             temp->hCost = 0;
@@ -175,6 +184,9 @@ board* board::moveRight(){ //returns a board after operation, sets parent, then 
         temp->currentState.at(blankPos + 1) = 0;
         temp->currentState.at(blankPos) = swapVal;
         temp->parent = this;
+        temp->boardSize = this->boardSize;
+        temp->goalState = this->goalState;
+        temp->width = this->width;
         temp->gCost = temp->parent->gCost + 1;
         if(temp->getVec() == goalState){
             temp->hCost = 0;
@@ -198,6 +210,17 @@ void board::print(){ //prints out the board
     cout << endl << endl;
 }
 
+void board::printGoal(){ //prints out the board
+    int width = ceil(sqrt(boardSize));
+    for(unsigned i = 0; i < boardSize; i++){
+        if(i % width == 0){
+            cout << endl;
+        }
+        cout << goalState.at(i) << " ";
+    }
+    cout << endl << endl;
+}
+
 bool board::goalFound(){ //return a bool if the board has reached its goal state
     if(currentState == goalState){
         return true;
@@ -217,4 +240,8 @@ vector<int> board::getVec(){ //helper function to return board's current state (
 
 void board::setVec(vector<int> v){ //helper function to set's a boards current state (vector)
     this->currentState = v;
+}
+
+void board::setGoal(vector<int> v){ //helper function to set's a boards goal state (vector)
+    this->goalState = v;
 }

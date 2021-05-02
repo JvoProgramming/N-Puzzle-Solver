@@ -17,6 +17,7 @@ int main()
     jStar* jstar = new jStar();
     board* solution = NULL;
     vector<int> problem = {};
+    vector<int> goalSolution = {};
 
     int puzzleChoice;
     cout << "Welcome to jvo033 and dvega007 - n puzzle solver.\n"
@@ -35,7 +36,20 @@ int main()
         fflush(stdin);
         gameBoard->boardSize = puzzleSize+1;
         gameBoard->width = ceil(sqrt(gameBoard->boardSize));
-        cout << "Enter game state, from top-left to right-bottom, " << gameBoard->boardSize << " characters, e.g. \"0 1 2 3 4 5 6 7 8\" " << endl;
+        
+         //SETTING UP SOLUTION STATE
+        for(int i = 0; i <= puzzleSize; i++){
+            goalSolution.push_back(i+1);
+        }
+        goalSolution.at(goalSolution.size()-1) = 0;
+        gameBoard->setGoal(goalSolution);
+        
+        cout << "Enter game state, from top-left to right-bottom, " << gameBoard->boardSize << " characters, e.g. \" ";
+        for(int i = 0; i <= puzzleSize; i++){
+            cout << i << " ";
+        }
+        cout << "\"" << endl;
+
         string userInput;
         fflush(stdin);
         getline(cin, userInput);

@@ -37,9 +37,11 @@ class board{
         bool goalFound();
         double misplacedCost();
         void print();
+        void printGoal();
         board* getParent();
         vector<int> getVec();
         void setVec(vector<int>);
+        void setGoal(vector<int>);
         
         //Functions for UCS, Misplace and Eucledian distance
         int f();
