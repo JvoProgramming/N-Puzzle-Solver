@@ -26,6 +26,10 @@ board* jStar::solve(board* b){
     explored.clear();
     frontierSet.clear();
     //LOOP UNTIL FRONTIER EMPTY OR GOAL STATE FOUND
+    if(root->goalFound()){
+        cout << "FOUND GOAL!" << endl;
+        return root;
+    }
     while(!frontier.empty()){
         if(frontier.size() > maxQueueSize){
             maxQueueSize = frontier.size();
