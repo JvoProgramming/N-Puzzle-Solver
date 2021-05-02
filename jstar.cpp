@@ -37,11 +37,8 @@ board* jStar::solve(board* b){
         }
         frontier.pop();
         //IF STATE IS GOAL, RETURN IT
-        if(b->goalFound()){
-            goalNode = b;
-            cout << "found GOAL" << endl;
-        }
         if(goalNode != NULL && (goalNode->cost <= frontier.top()->cost)){ //CHECK IF IT IS ACTUALLY THE GOAL NODE
+            cout << "FOUND GOAL!" << endl;
             return goalNode;
         }
         //ELSE INSERT INTO EXPLORED SET
@@ -52,21 +49,33 @@ board* jStar::solve(board* b){
             frontier.push(b->moveLeft());
             frontierSet.insert(b->moveLeft()->getVec());
             expandSize++;
+            if(b->moveLeft()->goalFound()){
+                goalNode = b->moveLeft();
+            }
         }
         if(b->moveRight() != NULL && !(explored.find(b->moveRight()->getVec()) != explored.end()) && !(frontierSet.find(b->moveRight()->getVec()) != frontierSet.end())){
             frontier.push(b->moveRight());
             frontierSet.insert(b->moveRight()->getVec());
             expandSize++;
+            if(b->moveRight()->goalFound()){
+                goalNode = b->moveRight();
+            }
         }
         if(b->moveUp() != NULL && !(explored.find(b->moveUp()->getVec()) != explored.end()) && !(frontierSet.find(b->moveUp()->getVec()) != frontierSet.end())){
             frontier.push(b->moveUp());
             frontierSet.insert(b->moveUp()->getVec());
             expandSize++;
+            if(b->moveUp()->goalFound()){
+                goalNode = b->moveUp();
+            }
         }
         if(b->moveDown() != NULL && !(explored.find(b->moveDown()->getVec()) != explored.end()) && !(frontierSet.find(b->moveDown()->getVec()) != frontierSet.end())){
             frontier.push(b->moveDown());
             frontierSet.insert(b->moveDown()->getVec());
             expandSize++;
+            if(b->moveDown()->goalFound()){
+                goalNode = b->moveDown();
+            }
         }
     }
     //CANNOT FIND A GOAL, RETURN NULL
@@ -75,7 +84,6 @@ board* jStar::solve(board* b){
 
 void jStar::printSolution(board* goalNode){
     int moves = 0;
-    cout << "PRINTING SOLUTION: " << endl;
     vector<board*> traverseVec;
     board* curr = goalNode;
     while(curr != NULL){

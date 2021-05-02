@@ -3,24 +3,24 @@
 
 board::board(){ //default constructor 
     parent = NULL;
-    boardSize = 9; //CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
+    boardSize = 9;
     width = ceil(sqrt(boardSize));
     gCost = 0;
     hCost = 0;
     cost = 0;
-    goalState = {1,2,3,4,5,6,7,8,0}; //CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
-    currentState = {1,2,3,4,5,6,7,8,0}; // CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
+    goalState = {1,2,3,4,5,6,7,8,0}; 
+    currentState = {1,2,3,4,5,6,7,8,0}; 
     misplacedCost();
 
 }
 
 board::board(vector<int> v){//constructor with parameter to set board current state (vector)
-    boardSize = 9; //CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
+    boardSize = 9;
     width = ceil(sqrt(boardSize));
     gCost = 0;
     //hCost = 0;
     parent = NULL;
-    goalState = {1,2,3,4,5,6,7,8,0}; //CHANGE IF YOU WANT TO CHANGE PUZZLE SIZE
+    goalState = {1,2,3,4,5,6,7,8,0};
     currentState = v;
     misplacedCost();
     cost = gCost + hCost;
@@ -42,6 +42,7 @@ int board::blankLocation(){ //returns location of blank spot
 double board::misplacedCost(){ //returns # of misplaced tiles and sets this->hCost and this->cost
     if(UCS && !euclidean){ //UCS heuristic
         this->hCost = 0;
+        this->cost = this->hCost + this->gCost;
         return 0;
     }
     else if(euclidean && !UCS){ //Euclidean Distance Algorithm
